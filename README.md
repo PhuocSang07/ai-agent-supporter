@@ -1,212 +1,161 @@
-# AI Agent Supporter - Modern AI Assistant with Streamlit UI
+# 🤖 AI Assistant Project
 
-Ứng dụng AI Assistant hiện đại tích hợp Weather Bot và Personal Calendar Assistant với giao diện Streamlit, hỗ trợ cả GPT-4o và Gemini 1.5 Flash.
+This is a versatile AI assistant built with Streamlit, designed to be an interactive and intelligent tool for everyday tasks. It leverages powerful AI models like GPT-4 and Gemini to provide a wide range of functionalities, from answering questions to managing your schedule.
 
-## 🏗️ Cấu trúc Dự án
+## ✨ Features
+
+- **Interactive Chat Interface**: A clean and user-friendly web interface for seamless interaction.
+- **Multi-Model Support**: Easily switch between different large language models:
+  - **GPT-4**: For advanced reasoning and text generation.
+  - **Gemini 2.0 Flash**: For fast and efficient responses.
+- **Real-time Weather Information**: Get current weather updates for any location worldwide.
+- **Google Calendar Integration**: 
+  - View your upcoming events.
+  - Create new events and schedule meetings.
+- **Configurable Agent**: Use the sidebar to initialize the agent with your desired model and features.
+- **Asynchronous Processing**: Ensures a smooth user experience without blocking.
+
+## 📁 Project Structure
+
+Here is an overview of the key files in this project:
 
 ```
-ai-agent-supporter/
-├── app.py                    # 🎨 Main Streamlit application
-├── agent_factory.py          # 🏭 Agent creation and configuration
-├── weather_tools.py          # 🌤️ Weather API integration
-├── calendar_tools.py         # 📅 Google Calendar tools
-├── google_auth.py           # 🔐 OAuth 2.0 authentication
-├── requirements.txt         # 📦 Python dependencies
-├── example.env             # ⚙️ Environment variables template
-├── .gitignore              # 🚫 Git ignore rules
-├── LICENSE                 # 📄 MIT License
-└── README.md              # 📖 This file
+/
+├── app.py                  # Main Streamlit application file
+├── agent_factory.py        # Creates the AI agent with selected tools
+├── weather_tools.py        # Provides weather checking functionality
+├── calendar_tools.py       # Tools for Google Calendar integration
+├── google_auth.py          # Handles Google OAuth2 authentication
+├── requirements.txt        # Python dependencies
+├── example.env             # Template for environment variables
+└── GOOGLE_SETUP.md         # Guide for setting up Google Calendar API
 ```
 
-## ✨ Tính năng
+## 🛠️ Setup and Installation
 
-### 🌤️ Weather Bot
-- Kiểm tra thời tiết hiện tại của bất kỳ thành phố nào trên thế giới
-- Hiển thị nhiệt độ, độ ẩm, tốc độ gió và mô tả thời tiết
-- Sử dụng Open-Meteo API miễn phí
+Follow these steps to set up and run the project locally.
 
-### 📅 DateTime Assistant (Luôn có sẵn)
-- Xác định ngày giờ hiện tại chính xác theo múi giờ Việt Nam
-- Tính toán ngày mai, hôm qua và các ngày tương đối
-- Cung cấp thông tin chi tiết về thời gian để hỗ trợ các tác vụ khác
-- Hỗ trợ LLM hiểu và xử lý câu hỏi về thời gian một cách chính xác
+### 1. Prerequisites
 
-### 📅 Personal Calendar Assistant (Tùy chọn)
-- Xem danh sách sự kiện sắp tới
-- Tạo sự kiện mới với thông tin chi tiết
-- Xóa sự kiện theo tiêu đề
-- Tìm kiếm sự kiện trong lịch
-- Hỗ trợ xác thực OAuth 2.0
+- Python 3.8 or higher
+- `pip` for package management
 
-### 🧠 AI Models
-- **GPT-4o** (OpenAI) - Mặc định
-- **Gemini 2.0 Flash** (Google) - Lựa chọn thay thế
+### 2. Clone the Repository
 
-### 🎨 Streamlit UI
-- Giao diện web hiện đại và thân thiện
-- Cấu hình real-time
-- Chat interface trực quan
+```bash
+git clone <your-repository-url>
+cd <your-repository-directory>
+```
 
-## 🚀 Cài đặt và Chạy
+### 3. Create a Virtual Environment
 
-### 1. Cài đặt dependencies
+It's recommended to use a virtual environment to manage dependencies.
+
+```bash
+# For macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+
+# For Windows
+python -m venv venv
+.\venv\Scripts\activate
+```
+
+### 4. Install Dependencies
+
+Install all the required Python packages using the `requirements.txt` file.
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Thiết lập environment variables
+### 5. Set Up Environment Variables
+
+Create a `.env` file in the root directory by copying the `example.env` file.
+
 ```bash
 cp example.env .env
 ```
 
-Chỉnh sửa file `.env`:
-```env
-# Bắt buộc: Ít nhất một trong hai
-OPENAI_API_KEY=your_openai_api_key_here
-GOOGLE_API_KEY=your_google_api_key_here
+Now, open the `.env` file and add your API keys:
 
-# Tùy chọn: Cho tính năng Calendar
-GOOGLE_CREDENTIALS_FILE=credentials.json
-GOOGLE_TOKEN_FILE=token.pickle
+```
+# .env
+OPENAI_API_KEY="your_openai_api_key"
+GOOGLE_API_KEY="your_google_api_key"
 ```
 
-### 3. (Tùy chọn) Thiết lập Google Calendar
+- `OPENAI_API_KEY`: Required if you want to use the GPT-4 model.
+- `GOOGLE_API_KEY`: Required for the Gemini model and Google services.
 
-**📋 Hướng dẫn chi tiết:** Xem [GOOGLE_SETUP.md](GOOGLE_SETUP.md)
+### 6. Set Up Google Calendar API
 
-**🚀 Setup nhanh:**
-1. **Tạo Google Cloud Project:**
-   - Truy cập [Google Cloud Console](https://console.cloud.google.com/)
-   - Tạo project mới hoặc chọn project hiện có
+To enable the Google Calendar feature, you need to set up OAuth 2.0 credentials.
 
-2. **Bật Google Calendar API:**
-   - Đi đến APIs & Services > Library
-   - Tìm và bật "Google Calendar API"
+1.  Follow the instructions in the `GOOGLE_SETUP.md` file to enable the Google Calendar API and get your `credentials.json` file.
+2.  Place the downloaded `credentials.json` file in the root directory of the project.
 
-3. **Cấu hình OAuth consent screen:**
-   - Đi đến APIs & Services > OAuth consent screen
-   - Chọn "External" và điền thông tin cơ bản
-   - Thêm email của bạn vào "Test users"
+## 🚀 How to Run
 
-4. **Tạo OAuth 2.0 Credentials:**
-   - Đi đến APIs & Services > Credentials
-   - Tạo OAuth client ID (Desktop application)
-   - Thêm redirect URIs: `http://localhost:8080/`, `http://localhost:8090/`, etc.
-   - Tải xuống file JSON và đổi tên thành `credentials.json`
-   - Đặt file này vào thư mục dự án
+Once you have completed the setup, you can run the application using Streamlit.
 
-### 4. Chạy ứng dụng
 ```bash
 streamlit run app.py
 ```
 
-Ứng dụng sẽ mở tại `http://localhost:8501`
+The application will be available at `http://localhost:8501` in your web browser.
 
-## 🎯 Cách sử dụng
+### Usage Guide
 
-### Bước 1: Cấu hình
-1. Mở sidebar (nếu chưa mở)
-2. Chọn AI model (GPT hoặc Gemini)
-3. Bật/tắt tính năng Calendar nếu cần
-4. Nhấn "🚀 Khởi tạo Agent"
+1.  **Open the application** in your browser.
+2.  Use the **sidebar** on the left to configure the agent.
+3.  **Select an AI model** (GPT-4 or Gemini 2.0 Flash).
+4.  **Enable Google Calendar** if you have set up the credentials.
+5.  Click the **"Initialize"** button to start the agent.
+6.  Once the agent is ready, you can start **chatting** in the main window!
 
-### Bước 2: Chat
-1. Nhập câu hỏi vào ô chat
-2. Agent sẽ tự động chọn tool phù hợp
-3. Xem kết quả và tiếp tục hội thoại
+## 🔧 Diagnostic Tool
 
-### 📝 Ví dụ câu hỏi
-
-#### Weather Bot:
-```
-"Thời tiết ở Tokyo như thế nào?"
-"Cho tôi biết thời tiết hiện tại ở Hà Nội"
-"What's the weather in New York?"
+Nếu gặp lỗi, chạy tool chẩn đoán để kiểm tra setup:
+```bash
+python diagnostic.py
 ```
 
-#### DateTime Assistant:
-```
-"Hôm nay là thứ mấy?"
-"Ngày hôm nay là ngày bao nhiêu?"
-"Bây giờ là mấy giờ?"
-"Ngày mai là ngày gì?"
-"Cho tôi biết thông tin thời gian hiện tại"
-```
+## 🔑 API Keys cần thiết:
 
-#### Calendar Assistant:
-```
-"Liệt kê 5 sự kiện sắp tới"
-"Lịch trình ngày mai"
-"Tất cả sự kiện ngày 30/6/2025"
-"Tạo cuộc họp 'Báo cáo dự án' vào 2025-07-01 từ 14:00 đến 15:30"
-"Tìm kiếm sự kiện có từ 'họp'"
-"Xóa sự kiện 'Cuộc họp team'"
-```
+- **OPENAI_API_KEY** - Lấy từ [OpenAI Platform](https://platform.openai.com/api-keys)
+- **GOOGLE_API_KEY** - Lấy từ [Google AI Studio](https://makersuite.google.com/app/apikey)
 
-## 🔧 Troubleshooting
+## 📅 Google Calendar (Tùy chọn):
 
-### Lỗi "API Key not found"
-- Kiểm tra file `.env` có đúng tên biến không
-- Đảm bảo đã restart ứng dụng sau khi thay đổi `.env`
+Nếu muốn sử dụng tính năng Calendar:
+1. **Xem hướng dẫn chi tiết:** [GOOGLE_SETUP.md](GOOGLE_SETUP.md)
+2. Hoặc setup nhanh:
+   - Truy cập [Google Cloud Console](https://console.cloud.google.com/)
+   - Tạo project và bật Calendar API
+   - Cấu hình OAuth consent screen
+   - Tạo OAuth credentials (Desktop application)
+   - Tải file `credentials.json` vào thư mục này
 
-### Lỗi Google Calendar
-- Đảm bảo đã đặt đúng file `credentials.json`
-- Kiểm tra OAuth consent screen đã được cấu hình
-- Xóa file `token.pickle` nếu gặp lỗi authentication
+## 💡 Tip:
+Bạn có thể chỉ sử dụng Weather Bot mà không cần Google Calendar!
 
-### Lỗi import
-- Kiểm tra đã cài đặt đủ dependencies: `pip install -r requirements.txt`
-- Đảm bảo đang sử dụng đúng Python environment
+## 🔧 Troubleshooting:
 
-### Lỗi "models/gemini-pro is not found"
-- Model `gemini-pro` đã bị deprecated
-- Ứng dụng hiện sử dụng `gemini-2.0-flash` (đã được cập nhật)
-- Restart ứng dụng nếu vẫn gặp lỗi này
+### ❌ "models/gemini-pro is not found" 
+- **Giải pháp:** Restart app, model đã được cập nhật thành `gemini-2.0-flash`
 
-### Lỗi Multiple OAuth requests
-- Chỉ click "Khởi tạo Agent" một lần
-- Nếu gặp nhiều yêu cầu OAuth, restart ứng dụng và thử lại
+### ❌ "Access blocked: This app's request is invalid"
+- **Giải pháp:** Xem hướng dẫn chi tiết trong [GOOGLE_SETUP.md](GOOGLE_SETUP.md)
+- Thường do OAuth consent screen chưa cấu hình đúng
+- Cần thêm email vào "Test users" hoặc publish app
 
-## 🔒 Bảo mật
+### ❌ Multiple OAuth requests
+- **Giải pháp:** Chỉ click "Khởi tạo Agent" một lần, restart app nếu cần
 
-- File `.env` chứa API keys, không commit vào Git
-- File `credentials.json` chứa OAuth secrets, cần bảo mật
-- File `token.pickle` chứa access token, không chia sẻ
+### ❌ "API Key not found"
+- **Giải pháp:** Kiểm tra file `.env` có đúng API key không
 
-## 🎨 Tùy chỉnh
-
-### Thêm AI Model mới
-Chỉnh sửa `agent_factory.py` để thêm model:
-```python
-elif model_choice.lower() == "claude":
-    llm = ChatAnthropic(model="claude-3-sonnet-20240229")
-```
-
-### Thêm Tool mới
-1. Tạo function với decorator `@tool`
-2. Thêm vào list tools trong `agent_factory.py`
-3. Cập nhật system prompt
-
-### Thay đổi giao diện
-Chỉnh sửa CSS trong `app.py` hoặc thêm file CSS riêng.
-
-## 🎯 Mục tiêu học tập
-
-Qua dự án này, bạn sẽ học được:
-
-1. **Tool Calling** - Cách AI agent quyết định và sử dụng tools
-2. **LangChain Framework** - Xây dựng agent với LangChain
-3. **API Integration** - Tích hợp với API bên ngoài (Weather, Calendar)
-4. **OAuth Authentication** - Xử lý xác thực người dùng
-5. **Streamlit Development** - Xây dựng web app với Streamlit
-6. **Multi-model Support** - Hỗ trợ nhiều AI model
-7. **Error Handling** - Xử lý lỗi và exception
-8. **Best Practices** - Thực hành tốt trong phát triển AI agent
-
-## 🤝 Đóng góp
-
-Nếu bạn có ý tưởng cải thiện hoặc muốn thêm tính năng mới, hãy tạo issue hoặc pull request!
-
-## 📄 License
-
-MIT License - xem file [LICENSE](LICENSE) để biết thêm chi tiết.
+### ❌ "redirect_uri_mismatch"
+- **Giải pháp:** Thêm redirect URIs vào Google Cloud Console credentials
+- Cần thêm: http://localhost:8080/, http://localhost:8090/, etc.
