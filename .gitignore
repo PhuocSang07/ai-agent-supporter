@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# AI Agent Supporter Project specific files
+# Google Calendar credentials and tokens
+credentials.json
+token.pickle
+
+# Environment files with actual API keys
+.env
